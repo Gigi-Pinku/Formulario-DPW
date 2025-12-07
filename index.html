@@ -111,20 +111,22 @@ document.getElementById("formulario").addEventListener("submit", function(e) {
 
     fetch("https://script.google.com/macros/s/AKfycbxCxLtr6QDOQtNIgtDwB94bQwzF_OTxs9cQTnA-tegrSV-Jp2oibTN0iMXCXUIGPFWq3w/exec", {
         method: "POST",
-        body: data
+        body: data,
+        mode: "no-cors"   // ← ESTO ES LO QUE FALTABA
     })
-    .then(res => res.text())
-    .then(msg => {
+    .then(() => {
         alert("¡Registro enviado correctamente!");
         document.getElementById("formulario").reset();
     })
     .catch(err => {
         alert("Error al enviar el registro");
+        console.error(err);
     });
 });
 </script>
 
 </body>
 </html>
+
 
 
