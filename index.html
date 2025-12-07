@@ -54,11 +54,6 @@
             font-size: 16px;
         }
 
-        input[type="number"] {
-            appearance: textfield;
-            -moz-appearance: textfield;
-        }
-
         .boton-enviar {
             background-color: #008751; 
             color: white;
@@ -80,7 +75,8 @@
 
 <div class="formulario-contenedor">
     <h2>📝 Inscripción a Excursión</h2>
-    <form action="/enviar-formulario" method="post">
+
+    <form id="formulario">
 
         <div class="grupo-formulario">
             <label for="nombre">Nombre Completo del Responsable:</label>
@@ -99,7 +95,7 @@
 
         <div class="grupo-formulario">
             <label for="telefono">Teléfono de Contacto de Emergencia:</label>
-            <input type="text" id="telefono" name="telefono" pattern="[0-9]{10,}" title="Introduce un número de teléfono válido (mínimo 10 dígitos)" required>
+            <input type="text" id="telefono" name="telefono" pattern="[0-9]{10,}" title="Introduce un número válido (mínimo 10 dígitos)" required>
         </div>
 
         <button type="submit" class="boton-enviar">Registrarse</button>
@@ -107,5 +103,28 @@
     </form>
 </div>
 
+<script>
+document.getElementById("formulario").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = new FormData(e.target);
+
+    fetch("https://script.google.com/macros/s/AKfycbxCxLtr6QDOQtNIgtDwB94bQwzF_OTxs9cQTnA-tegrSV-Jp2oibTN0iMXCXUIGPFWq3w/exec", {
+        method: "POST",
+        body: data
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert("¡Registro enviado correctamente!");
+        document.getElementById("formulario").reset();
+    })
+    .catch(err => {
+        alert("Error al enviar el registro");
+    });
+});
+</script>
+
 </body>
 </html>
+
+
